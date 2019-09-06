@@ -22,15 +22,8 @@ namespace BookAppDataAccessLayer.Controller
         
         public Book GetBookDetailsById(int Id)
         {
-            Book book = null;
-            for (int index = 0; index < bookList.Count; index++)
-            {
-                if (Id == bookList[index].Id)
-                {
-                    book = bookList[index];
-                }
-            }
-            return book;
+            BookRepository bookRepository = new BookRepository();
+            return bookList.Find(b=>b.Id==Id);
         }
 
         
@@ -38,8 +31,8 @@ namespace BookAppDataAccessLayer.Controller
         {
             try
             {
-                if(!bookList.Contains(book))   
-                    bookList.Add(new Book { Id = book.Id, Name = book.Name, Price = book.Price, Author = book.Author, Category = book.Category });
+                if (!bookList.Contains(book))
+                    bookList.Add(book);
                 return true;
             }
             catch (Exception)

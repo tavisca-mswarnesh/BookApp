@@ -13,11 +13,11 @@ namespace SampleHelloWorld.Controllers
     {
         
         private readonly BookRepository _bookRepository;
-        public BookServices(BookRepository bookRepository)
+        public BookServices()
         {
             //_bookRepository.PostBookDetails(new Book { Id = 1, Name = "Harry Potter", Price = 300, Author = "J K Rowling", Category = "Fiction" });
             
-            _bookRepository = bookRepository;
+            _bookRepository = new BookRepository();
 
         }
         
@@ -35,17 +35,20 @@ namespace SampleHelloWorld.Controllers
         public BookResponse Get(int id)
         {
             BookResponse bookResponse = new BookResponse();
+            Book book = _bookRepository.GetBookDetailsById(id);
             if (id < 1)
             {
                 bookResponse.Status = false;
                 bookResponse.Message = "Invalid id";
                 bookResponse.Value = null;
+
             }
             
-            Book book=_bookRepository.GetBookDetailsById(id);
             
-            if (book!=null)
+            
+            else if (book!=null)
             {
+
                 bookResponse.Status = true;
                 bookResponse.Message = "details found";
                 bookResponse.Value = book;
@@ -69,13 +72,13 @@ namespace SampleHelloWorld.Controllers
                 bookResponse.Message = "Author name only contains characters , spaces and .";
                 bookResponse.Value = null;
             }
-            if (book.Id < 1)
+            else if (book.Id < 1)
             {
                 bookResponse.Status = false;
                 bookResponse.Message = "Invalid Id";
                 bookResponse.Value = null;
             }
-            if(book.Price<0)
+            else if(book.Price<0)
             {
                 bookResponse.Status = false;
                 bookResponse.Message = "Invalid Price";

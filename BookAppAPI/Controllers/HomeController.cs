@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.Model;
+using CommonModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using DAL.Controller;
-using CommonModels;
+
 
 namespace SampleHelloWorld.Controllers
 {
