@@ -21,7 +21,7 @@ namespace SampleHelloWorld.Controllers
 
         }
         
-        public BookResponse GetBook()
+        public BookResponse GetAllBooks()
         {
 
             BookResponse bookResponse = new BookResponse();
@@ -32,7 +32,7 @@ namespace SampleHelloWorld.Controllers
         }
 
                
-        public BookResponse Get(int id)
+        public BookResponse GetBookById(int id)
         {
             BookResponse bookResponse = new BookResponse();
             Book book = _bookRepository.GetBookDetailsById(id);

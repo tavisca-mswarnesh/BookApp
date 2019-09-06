@@ -10,7 +10,7 @@ namespace BookAppServiceTests
     public class PostTests
     {
         [Fact]
-        public void post_book_test()
+        public void Post_book_test()
         {
             BookServices bookServices = new BookServices();
             List<Book> bookList = new List<Book>();
@@ -21,7 +21,7 @@ namespace BookAppServiceTests
         }
         [Theory]
         [InlineData(-1, "Invalid Id")]
-        public void post_book_invalid_id_test(int id, string result)
+        public void Post_book_invalid_id_test(int id, string result)
         {
             BookServices bookServices = new BookServices();
             List<Book> bookList = new List<Book>();
@@ -32,7 +32,7 @@ namespace BookAppServiceTests
         }
         [Theory]
         [InlineData(-1, "Invalid Price")]
-        public void post_book_invalid_price_test(int price, string result)
+        public void Post_book_invalid_price_test(int price, string result)
         {
             BookServices bookServices = new BookServices();
             List<Book> bookList = new List<Book>();
@@ -45,8 +45,9 @@ namespace BookAppServiceTests
         [InlineData(",", "Author name only contains characters , spaces and .")]
         [InlineData(",.", "Author name only contains characters , spaces and .")]
         [InlineData("123", "Author name only contains characters , spaces and .")]
+        [InlineData("vamsi 1", "Author name only contains characters , spaces and .")]
 
-        public void post_book_invalid_name_test(string name, string result)
+        public void Post_book_invalid_name_test(string name, string result)
         {
             BookServices bookServices = new BookServices();
             List<Book> bookList = new List<Book>();
@@ -57,7 +58,7 @@ namespace BookAppServiceTests
         }
         [Theory]
         [InlineData("Abc", "Added Successfully")]
-        public void post_book_valid_name_test(string name, string result)
+        public void Post_book_valid_name_test(string name, string result)
         {
             BookServices bookServices = new BookServices();
             List<Book> bookList = new List<Book>();
@@ -71,44 +72,44 @@ namespace BookAppServiceTests
     public class GetTests
     {
         [Fact]
-        public void get_empty_list_test()
+        public void Get_empty_list_test()
         {
             //BookRepository bookRepository = new BookRepository();
             BookServices bookServices = new BookServices();
             
-            var result = bookServices.GetBook();
+            var result = bookServices.GetAllBooks();
             Assert.Equal("Details of all books", result.Message);
             
         }
         [Fact]
-        public void get_all_books_test()
+        public void Get_all_books_test()
         {
             
             BookServices bookServices = new BookServices();
             List<Book> bookList = new List<Book>();
             bookList.Add(new  Book { Id = 1, Name = "Harry Potter", Price = 300, Author = "J K Rowling", Category = "Fiction" });
             bookServices.Post(bookList[0]);
-            Assert.Equal(bookList, bookServices.GetBook().Value);
+            Assert.Equal(bookList, bookServices.GetAllBooks().Value);
 
         }
         [Fact]
-        public void get_book_by_id_test()
+        public void Get_book_by_id_test()
         {
             
             BookServices bookServices = new BookServices();
             List<Book> bookList = new List<Book>();
             bookList.Add(new Book { Id = 1, Name = "Harry Potter", Price = 300, Author = "J K Rowling", Category = "Fiction" });
             bookServices.Post(bookList[0]);
-            Assert.Equal(bookList[0], bookServices.Get(bookList[0].Id).Value);
+            Assert.Equal(bookList[0], bookServices.GetBookById(bookList[0].Id).Value);
         }
         [Theory]
         [InlineData(-1, "Invalid id")]
         [InlineData(1, "Not found")]
-        public void get_book_by_id_invalid_test(int id,string result)
+        public void Get_book_by_id_invalid_test(int id,string result)
         {
             
             BookServices bookServices = new BookServices();
-            Assert.Equal(result, bookServices.Get(id).Message);
+            Assert.Equal(result, bookServices.GetBookById(id).Message);
         }
         
 

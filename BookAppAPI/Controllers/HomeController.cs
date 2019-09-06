@@ -28,7 +28,7 @@ namespace SampleHelloWorld.Controllers
         public IActionResult GetBook()
         {
 
-            return  Ok(_bookServices.GetBook());
+            return  Ok(_bookServices.GetAllBooks());
         }
 
         // GET: api/Home/5
@@ -36,7 +36,7 @@ namespace SampleHelloWorld.Controllers
         public IActionResult Get(int id)
         {
             
-            return Ok(_bookServices.Get(id));
+            return Ok(_bookServices.GetBookById(id));
         }
 
         // POST: api/Home
