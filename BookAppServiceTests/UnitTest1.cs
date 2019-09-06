@@ -7,7 +7,7 @@ using Xunit;
 
 namespace BookAppServiceTests
 {
-    public class UnitTest1
+    public class SevicesTest
     {
         [Fact]
         public void get_empty_list_test()
