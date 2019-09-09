@@ -7,11 +7,8 @@ namespace BookAppDataAccessLayer.Controller
 {
     public class BookRepository
     {
-        List<Book> bookList;
-        public BookRepository()
-        {
-            bookList = new List<Book>();
-        }
+        List<Book> bookList = new List<Book>();
+        
 
         public IEnumerable<Book> GetAllBookDetails()
         {

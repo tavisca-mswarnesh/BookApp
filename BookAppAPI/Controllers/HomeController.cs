@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using CommonModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BookAppServices.Controllers;
 
-
-namespace SampleHelloWorld.Controllers
+namespace BookAppAPI.Controllers
 {
     
     [Route("api/[controller]")]

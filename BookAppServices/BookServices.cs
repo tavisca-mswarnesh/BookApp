@@ -5,19 +5,19 @@ using System.Threading.Tasks;
 using BookAppDataAccessLayer.Controller;
 using CommonModels;
 
-namespace SampleHelloWorld.Controllers
+namespace BookAppServices.Controllers
 {
     
     
     public class BookServices 
     {
         
-        private readonly BookRepository _bookRepository;
+        private readonly BookRepository _bookRepository = new BookRepository();
         public BookServices()
         {
             //_bookRepository.PostBookDetails(new Book { Id = 1, Name = "Harry Potter", Price = 300, Author = "J K Rowling", Category = "Fiction" });
             
-            _bookRepository = new BookRepository();
+           // _bookRepository = new BookRepository();
 
         }
         
@@ -25,8 +25,9 @@ namespace SampleHelloWorld.Controllers
         {
 
             BookResponse bookResponse = new BookResponse();
+            bookResponse.Message = new List<string>();
             bookResponse.Status = true;
-            bookResponse.Message = "Details of all books";
+            bookResponse.Message.Add("Details of all books");
             bookResponse.Value = _bookRepository.GetAllBookDetails();
             return bookResponse;
         }
@@ -35,11 +36,12 @@ namespace SampleHelloWorld.Controllers
         public BookResponse GetBookById(int id)
         {
             BookResponse bookResponse = new BookResponse();
+            bookResponse.Message = new List<string>();
             Book book = _bookRepository.GetBookDetailsById(id);
             if (id < 1)
             {
                 bookResponse.Status = false;
-                bookResponse.Message = "Invalid id";
+                bookResponse.Message.Add("Invalid id");
                 bookResponse.Value = null;
 
             }
@@ -50,13 +52,13 @@ namespace SampleHelloWorld.Controllers
             {
 
                 bookResponse.Status = true;
-                bookResponse.Message = "details found";
+                bookResponse.Message.Add("details found");
                 bookResponse.Value = book;
             }
             else
             {
                 bookResponse.Status = false;
-                bookResponse.Message = "Not found";
+                bookResponse.Message.Add("Not found");
                 bookResponse.Value = null;
             }
             
@@ -66,28 +68,29 @@ namespace SampleHelloWorld.Controllers
         public BookResponse Post(Book book)
         {
             BookResponse bookResponse = new BookResponse();
+            bookResponse.Message = new List<string>();
             if (!book.Author.All(x => char.IsLetter(x) || x == ' ' || x == '.'))
             {
                 bookResponse.Status = false;
-                bookResponse.Message = "Author name only contains characters , spaces and .";
+                bookResponse.Message.Add("Author name only contains characters , spaces and .");
                 bookResponse.Value = null;
             }
             else if (book.Id < 1)
             {
                 bookResponse.Status = false;
-                bookResponse.Message = "Invalid Id";
+                bookResponse.Message.Add("Invalid Id");
                 bookResponse.Value = null;
             }
             else if(book.Price<0)
             {
                 bookResponse.Status = false;
-                bookResponse.Message = "Invalid Price";
+                bookResponse.Message.Add("Invalid Price");
                 bookResponse.Value = null;
             }
             else
             {
                 bookResponse.Status = true;
-                bookResponse.Message = "Added Successfully";
+                bookResponse.Message.Add("Added Successfully");
                 bookResponse.Value = _bookRepository.PostBookDetails(book);
             }
             
@@ -98,9 +101,10 @@ namespace SampleHelloWorld.Controllers
         public BookResponse Put(Book book)
         {
             BookResponse bookResponse = new BookResponse();
+            bookResponse.Message = new List<string>();
             bookResponse.Status = true;
-            bookResponse.Message = "Updated Successfully";
-            bookResponse.Value = _bookRepository.PostBookDetails(book);
+            bookResponse.Message.Add("Updated Successfully");
+            bookResponse.Value = _bookRepository.PutBook(book);
             return bookResponse;
 
 
@@ -111,7 +115,7 @@ namespace SampleHelloWorld.Controllers
         {
             BookResponse bookResponse = new BookResponse();
             bookResponse.Status = true;
-            bookResponse.Message = "Updated Successfully";
+            bookResponse.Message.Add("Deleted Successfully");
             bookResponse.Value = _bookRepository.DeleteBookDetails(id);
             return bookResponse;
              
