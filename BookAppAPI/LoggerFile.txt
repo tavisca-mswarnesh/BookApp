@@ -1,0 +1,11 @@
+	Time		Action		Status	Error/Success
+____________________________________________________________________________________________________________________________
+9/10/2019 10:29:49 AM	Get All Method	True	Details of all books,
+9/10/2019 10:29:53 AM	Post Method	True	Added Successfully,
+9/10/2019 10:30:10 AM	Put  Method	False	Invalid Id,Invalid Price,Author name only contains characters , spaces and .,
+9/10/2019 10:30:21 AM	Put  Method	False	Invalid Price,Author name only contains characters , spaces and .,
+9/10/2019 10:30:30 AM	Put  Method	False	Author name only contains characters , spaces and .,
+9/10/2019 10:30:43 AM	Put  Method	True	Added Successfully,
+9/10/2019 10:32:49 AM	Post Method	True	Added Successfully,
+9/10/2019 10:34:04 AM	Post Method	True	Added Successfully,
+9/10/2019 10:34:11 AM	Delete Method	True	Deleted Successfully,

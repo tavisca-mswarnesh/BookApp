@@ -119,6 +119,7 @@ namespace BookAppServices.Controllers
             log.Time = DateTime.Now;
             BookResponse bookResponse = new BookResponse();
             bookResponse.Status = true;
+            bookResponse.Message = new List<string>();
             bookResponse.Message.Add("Deleted Successfully");
             bookResponse.Value = _bookRepository.DeleteBookDetails(id);
             log.MethodCalled = "Delete Method";
