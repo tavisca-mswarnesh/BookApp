@@ -3,15 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookAppAPI", "BookAppAPI\BookAppAPI.csproj", "{582465A8-6053-4353-8F4D-E6B692492A03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookAppAPI", "BookAppAPI\BookAppAPI.csproj", "{582465A8-6053-4353-8F4D-E6B692492A03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookAppServices", "BookAppServices\BookAppServices.csproj", "{27A667B1-37D3-4D0D-9190-26D8684A4168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookAppServices", "BookAppServices\BookAppServices.csproj", "{27A667B1-37D3-4D0D-9190-26D8684A4168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookAppDataAccessLayer", "BookAppDataAcessLayer\BookAppDataAccessLayer.csproj", "{616AA946-EC09-4986-B2A3-B7CAF0A5914E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookAppDataAccessLayer", "BookAppDataAcessLayer\BookAppDataAccessLayer.csproj", "{616AA946-EC09-4986-B2A3-B7CAF0A5914E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonModels", "CommonModels\CommonModels.csproj", "{9ECBE2E5-F326-481D-9A16-F6F9F1585E33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonModels", "CommonModels\CommonModels.csproj", "{9ECBE2E5-F326-481D-9A16-F6F9F1585E33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookAppServiceTests", "BookAppServiceTests\BookAppServiceTests.csproj", "{B63AF773-5C05-4298-B7DE-2CCC7A8DA8A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookAppServiceTests", "BookAppServiceTests\BookAppServiceTests.csproj", "{B63AF773-5C05-4298-B7DE-2CCC7A8DA8A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3A8858C0-6151-42DE-88C5-443F6DEE123D}"
+	ProjectSection(SolutionItems) = preProject
+		LoggerFile.txt = LoggerFile.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

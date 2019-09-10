@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using BookAppDataAccessLayer.Controller;
 using CommonModels;
 namespace BookAppServices.Controllers
 {
 
-
-    public class BookServices 
+    public class BookServices :IServices
     {
         
         private readonly BookRepository _bookRepository = new BookRepository();
@@ -40,6 +38,9 @@ namespace BookAppServices.Controllers
                
         public BookResponse GetBookById(int id)
         {
+            Logger logger = new Logger();
+            Log log = new Log();
+            log.Time = DateTime.Now;
             BookResponse bookResponse = new BookResponse();
             bookResponse.Message = new List<string>();
             Book book = _bookRepository.GetBookDetailsById(id);
@@ -66,27 +67,45 @@ namespace BookAppServices.Controllers
                 bookResponse.Message.Add("Not found");
                 bookResponse.Value = null;
             }
-            
+            log.MethodCalled = "Get Book by Id Method";
+            log.Status = bookResponse.Status;
+            log.Error = bookResponse.Message;
+            logger.write(log);
             return bookResponse;
         }
         
         public BookResponse Post(Book book)
         {
+            Logger logger = new Logger();
+            Log log = new Log();
+            log.Time = DateTime.Now;
             BookResponse bookResponse = new BookResponse();
             bookResponse.Message = new List<string>();
             valid(book,ref bookResponse);
-            
+
+            log.MethodCalled = "Post Method";
+            log.Status = bookResponse.Status;
+            log.Error = bookResponse.Message;
+            logger.write(log);
             return bookResponse;
         }
 
-        // PUT: api/Home/5
+        
         public BookResponse Put(Book book)
         {
+            Logger logger = new Logger();
+            Log log = new Log();
+            log.Time = DateTime.Now;
             BookResponse bookResponse = new BookResponse();
             bookResponse.Message = new List<string>();
             bookResponse.Status = true;
             valid(book,ref bookResponse);
             bookResponse.Value = _bookRepository.PutBook(book);
+
+            log.MethodCalled = "Put  Method";
+            log.Status = bookResponse.Status;
+            log.Error = bookResponse.Message;
+            logger.write(log);
             return bookResponse;
 
 
@@ -95,10 +114,17 @@ namespace BookAppServices.Controllers
         
         public BookResponse Delete(int id)
         {
+            Logger logger = new Logger();
+            Log log = new Log();
+            log.Time = DateTime.Now;
             BookResponse bookResponse = new BookResponse();
             bookResponse.Status = true;
             bookResponse.Message.Add("Deleted Successfully");
             bookResponse.Value = _bookRepository.DeleteBookDetails(id);
+            log.MethodCalled = "Delete Method";
+            log.Status = bookResponse.Status;
+            log.Error = bookResponse.Message;
+            logger.write(log);
             return bookResponse;
              
         }
@@ -124,23 +150,5 @@ namespace BookAppServices.Controllers
             
         }
         
-    }
-    public class Logger
-    {
-        public void write(Log log)
-        {
-            string path = "LoggerFile.txt";
-            FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-            if (File.Exists(path))
-            {
-                
-                sw.WriteLine("Hello");
-                    
-                
-                    
-                Console.WriteLine("File Found") ;
-            }
-        }
     }
 }
