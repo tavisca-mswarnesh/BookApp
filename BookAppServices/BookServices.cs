@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using BookAppDataAccessLayer.Controller;
 using CommonModels;
-
 namespace BookAppServices.Controllers
 {
-    
-    
+
+
     public class BookServices 
     {
         
@@ -23,12 +22,18 @@ namespace BookAppServices.Controllers
         
         public BookResponse GetAllBooks()
         {
-
+            Logger logger = new Logger();
+            Log log = new Log();
+            log.Time = DateTime.Now;
             BookResponse bookResponse = new BookResponse();
             bookResponse.Message = new List<string>();
             bookResponse.Status = true;
             bookResponse.Message.Add("Details of all books");
             bookResponse.Value = _bookRepository.GetAllBookDetails();
+            log.MethodCalled = "Get All Method";
+            log.Status = bookResponse.Status;
+            log.Error = bookResponse.Message;
+            logger.write(log);
             return bookResponse;
         }
 
@@ -69,30 +74,7 @@ namespace BookAppServices.Controllers
         {
             BookResponse bookResponse = new BookResponse();
             bookResponse.Message = new List<string>();
-            if (!book.Author.All(x => char.IsLetter(x) || x == ' ' || x == '.'))
-            {
-                bookResponse.Status = false;
-                bookResponse.Message.Add("Author name only contains characters , spaces and .");
-                bookResponse.Value = null;
-            }
-            else if (book.Id < 1)
-            {
-                bookResponse.Status = false;
-                bookResponse.Message.Add("Invalid Id");
-                bookResponse.Value = null;
-            }
-            else if(book.Price<0)
-            {
-                bookResponse.Status = false;
-                bookResponse.Message.Add("Invalid Price");
-                bookResponse.Value = null;
-            }
-            else
-            {
-                bookResponse.Status = true;
-                bookResponse.Message.Add("Added Successfully");
-                bookResponse.Value = _bookRepository.PostBookDetails(book);
-            }
+            valid(book,ref bookResponse);
             
             return bookResponse;
         }
@@ -103,7 +85,7 @@ namespace BookAppServices.Controllers
             BookResponse bookResponse = new BookResponse();
             bookResponse.Message = new List<string>();
             bookResponse.Status = true;
-            bookResponse.Message.Add("Updated Successfully");
+            valid(book,ref bookResponse);
             bookResponse.Value = _bookRepository.PutBook(book);
             return bookResponse;
 
@@ -119,6 +101,46 @@ namespace BookAppServices.Controllers
             bookResponse.Value = _bookRepository.DeleteBookDetails(id);
             return bookResponse;
              
+        }
+        public void valid(Book book,ref BookResponse bookResponse)
+        {
+            BookvValidator validationRules = new BookvValidator();
+            var flag = validationRules.Validate(book);
+            if(flag.IsValid)
+            {
+                bookResponse.Status = true;
+                bookResponse.Message.Add("Added Successfully");
+                bookResponse.Value = _bookRepository.PostBookDetails(book);
+            }
+            else
+            {
+                bookResponse.Status = false;
+                foreach (var error in flag.Errors)
+                {
+                    bookResponse.Message.Add(error.ErrorMessage);
+                }
+                bookResponse.Value = null;
+            }
+            
+        }
+        
+    }
+    public class Logger
+    {
+        public void write(Log log)
+        {
+            string path = "LoggerFile.txt";
+            FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs);
+            if (File.Exists(path))
+            {
+                
+                sw.WriteLine("Hello");
+                    
+                
+                    
+                Console.WriteLine("File Found") ;
+            }
         }
     }
 }
