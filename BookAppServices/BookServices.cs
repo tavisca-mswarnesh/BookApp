@@ -9,7 +9,7 @@ namespace BookAppServices.Controllers
     public class BookServices :IServices
     {
         
-        private readonly BookRepository _bookRepository = new BookRepository();
+        private readonly IRepository _bookRepository = new BookRepository();
         public BookServices()
         {
             //_bookRepository.PostBookDetails(new Book { Id = 1, Name = "Harry Potter", Price = 300, Author = "J K Rowling", Category = "Fiction" });

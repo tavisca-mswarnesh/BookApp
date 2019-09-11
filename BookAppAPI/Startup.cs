@@ -28,8 +28,8 @@ namespace BookAppAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSingleton<BookRepository>();
-            services.AddSingleton<BookServices>(); 
+            services.AddSingleton<IRepository,BookRepository>();
+            services.AddSingleton<IServices, BookServices>(); 
 
         }
 

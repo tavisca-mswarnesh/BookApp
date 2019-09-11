@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BookAppDataAccessLayer.Controller
 {
-    public class BookRepository
+    public class BookRepository:IRepository
     {
         List<Book> bookList = new List<Book>();
         
@@ -19,7 +19,7 @@ namespace BookAppDataAccessLayer.Controller
         
         public Book GetBookDetailsById(int Id)
         {
-            BookRepository bookRepository = new BookRepository();
+            IRepository bookRepository = new BookRepository();
             return bookList.Find(b=>b.Id==Id);
         }
 
