@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookAppDataAccessLayer.Controller;
 using CommonModels;
+using ServiceStack.Redis;
+
+
 namespace BookAppServices.Controllers
 {
 
@@ -10,11 +13,17 @@ namespace BookAppServices.Controllers
     {
         
         private readonly IRepository _bookRepository = new BookRepository();
+
+        RedisManagerPool manager = new RedisManagerPool("localhost:6379");
+        IRedisClient client;
         public BookServices()
         {
             //_bookRepository.PostBookDetails(new Book { Id = 1, Name = "Harry Potter", Price = 300, Author = "J K Rowling", Category = "Fiction" });
-            
-           // _bookRepository = new BookRepository();
+
+            // _bookRepository = new BookRepository();
+
+            //client.Set("id","");
+            client= manager.GetClient();
 
         }
         
@@ -43,7 +52,20 @@ namespace BookAppServices.Controllers
             log.Time = DateTime.Now;
             BookResponse bookResponse = new BookResponse();
             bookResponse.Message = new List<string>();
-            Book book = _bookRepository.GetBookDetailsById(id);
+            Book book;
+            book = _bookRepository.GetBookDetailsById(id);
+             if (client.Get<Book>(id.ToString())!=null)
+             {
+                 book = client.Get<Book>(id.ToString());
+                bookResponse.Message.Add("details found in Cache");
+            }
+             else
+             {
+                bookResponse.Message.Add("details found in database");
+                book = _bookRepository.GetBookDetailsById(id);
+                 client.Set(book.Id.ToString(), book);
+             }
+
             if (id < 1)
             {
                 bookResponse.Status = false;
@@ -58,7 +80,7 @@ namespace BookAppServices.Controllers
             {
 
                 bookResponse.Status = true;
-                bookResponse.Message.Add("details found");
+                //bookResponse.Message.Add("details found");
                 bookResponse.Value = book;
             }
             else

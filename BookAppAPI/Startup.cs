@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Unity;
 
 namespace BookAppAPI
 {
@@ -28,8 +29,11 @@ namespace BookAppAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSingleton<IRepository,BookRepository>();
-            services.AddSingleton<IServices, BookServices>(); 
+            services.AddSingleton<BookRepository>();
+            services.AddSingleton<BookServices>();
+            //UnityContainer unityContainer = new UnityContainer();
+            //unityContainer.RegisterType<IRepository, BookRepository>();
+            //unityContainer.RegisterType<IServices, BookServices>();
 
         }
 
